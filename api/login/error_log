@@ -1,0 +1,4 @@
+[19-Nov-2024 01:59:05 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Call to undefined function var_dunp() in /home/sayhueque/public_html/intranet/api/login/login.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/sayhueque/public_html/intranet/api/login/login.php on line 22

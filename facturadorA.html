@@ -1,0 +1,182 @@
+<div class="row">
+    <div class="col-xl-12 col-xs-12 mx-auto ">
+        <div class="card mt-1">
+            <div class="card-body">
+                <div class="input-group p-2">
+                    <div class="input-group">
+                        <button class="btn btn-outline-secondary" type="button" style="background:#e9ecef !important; color:black !important;">
+                        Buscar un Cliente
+                        </button>
+                        <select onchange="ActivarCarrito();" class="form-select single-select" id="clientes">
+                          <option selected disabled></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>
+
+<div hidden class="row carrito" >
+  <div class="col-xl-12 col-xs-12 mx-auto">
+    <div class="card">
+      <div class="card-body">
+                <div class="input-group p-2">
+                    <input type="text" autocomplete="off" autofocus class="form-control m-4"  id="buscadorProducto" aria-describedby="emailHelp" placeholder="Puede buscar un producto por nombre o codigo.">
+                </div>
+                <div class="input-group p-2">
+                        <table class="table centered" id="tabla-venta" >
+                          <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                                <th>IVA</th>
+                                <th>Subtotal C/IVA</th>
+                                <th>Quitar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                </div>
+            </div>
+          </div>
+      </div>
+</div>
+<div class="row carrito">
+<div class="col-xl-12 col-xs-12 mx-auto ">
+    <div class="card mt-1">
+        <div class="card-body">
+              <i style="font-size:2em !important" class="fadeIn animated bx bx-dollar m-2"></i><input type="text" readonly id="totalizador" class="browser-default" style="text-decoration: none;font-size: 2em;border:0;width:150px;" value="0.00">
+              <input hidden type="text" id="iva_10">
+              <input hidden type="text" id="iva_21">
+              <input hidden type="text" id="iva_27">
+              <input hidden type="text" id="base_10">
+              <input hidden type="text" id="base_21">
+              <input hidden type="text" id="base_27">
+              <input hidden type="text" id="totalizador_sinIVA">
+              <button onclick="reset();" style="width:18% !important;" type="button" class="btn btn-dark m-2">VOLVER</button>
+              <button hidden onclick="NuevoAjuste();" style="width:18% !important;" type="button" class="btn btn-dark m-2">Ajuste</button>
+              <button onclick="DescartarVenta();" style="width:18% !important;" type="button" class="btn btn-dark m-2">Descartar</button>
+              <button onclick="GuardarVenta();" style="width:18% !important;" type="button" class="btn btn-dark m-2">Finalizar</button>
+            </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalElegirproducto" tabindex="-1" role="dialog" aria-labelledby="modalElegirproducto" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Elegir Producto</h5>
+          <button type="button" class="close" onclick="CerrarElegirProducto();" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group p-2">
+                <table class="table centered" id="tabla-elegirproducto" >
+                    <thead>
+                      <tr>
+                          <th>Codigo</th>
+                          <th>Nombre</th>
+                          <th>Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+    
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalDescuentoPorcentual" tabindex="-1" role="dialog" aria-labelledby="modalDescuentoPorcentual" aria-hidden="true"><!-- Nuevo Ajuste -->
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Aplicar Descuento Porcentual</h5>
+        <button type="button" class="close" onclick="CerrarNuevoDescuentoPorcentual();" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="input-group p-2">
+              <span class="input-group-text p-1">Ingrese Porcentaje</span><input type="number" id="porcentaje_descuento" class="form-control">
+              <button onclick="CargarAjustePorcentual();" type="button" class="btn btn-dark radius-30"> + Cargar</button>
+          </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="modalAjuste" tabindex="-1" role="dialog" aria-labelledby="modalAjuste" aria-hidden="true"><!-- Nuevo Ajuste -->
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nuevo Ajuste</h5>
+          <button type="button" class="close" onclick="CerrarCargarAjuste();" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group p-2">
+                <span class="input-group-text p-1">Detalle</span><input type="text" id="detalle_item" class="form-control">
+                <span class="input-group-text p-1">Importe</span><input type="text" id="importe_item" class="form-control">
+                <button onclick="CargarAjuste();" type="button" class="btn btn-dark radius-30"> + Cargar</button>
+            </div>
+      </div>
+  </div>
+  </div>
+  </div>
+
+  
+<div class="modal fade" id="modalMetodo" tabindex="-1" role="dialog" aria-labelledby="modalMetodo" aria-hidden="true"><!-- Metodos de Pago -->
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Metodos de Pago</h5>
+        <button type="button" class="close" onclick="CerrarElegirMetodo();" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+          <span class="text-center"><strong>UTILICE EL PUNTO COMO SEPARADOR DECIMAL. NO UTILICE SEPARADOR DE MILES. EJ: 1525.50</strong></span>
+        <form id="metodo" class="col-12 mt-2">
+          <div class="row p-2">
+            <div class="input-field col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+              <label for="efectivo">EFECTIVO</label>
+              <input type="number" value="0.00" id="efectivo" step="0.01" class="form-control">
+            </div>
+            
+            <div class="input-field col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+              <label for="posnet">POSNET</label>
+              <input type="number" value="0.00" id="posnet" step="0.01" class="form-control">
+            </div>
+
+            <div class="input-field col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+              <label for="transferencia">TRANSFERENCIA</label>
+              <input type="number" value="0.00" id="transferencia" step="0.01" class="form-control">
+            </div>
+          </div>
+
+          <div class="row p-2">
+            <div class="input-field col-8"></div>
+            <div class="input-field col-4">
+              <button id="botonGuardar" onclick="InsertarVenta();" type="button" style="margin-top:20px !important" class="btn btn-pink accion-modal"><i class="bi bi-plus"></i>Guardar</button>
+            </div>
+          </div>
+          </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+    <script src="./js/facturarA.js?v=1.51"></script>

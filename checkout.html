@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es" class="light-theme">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+  <!--plugins-->
+  <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+  <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+  <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+  <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+  <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+  <link href="assets/plugins/input-tags/css/tagsinput.css" rel="stylesheet" />
+  <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap CSS -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/bootstrap-extended.css" rel="stylesheet" />
+  <link href="assets/css/style.css" rel="stylesheet" />
+  <link href="assets/css/icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" integrity="sha512-xnP2tOaCJnzp2d2IqKFcxuOiVCbuessxM6wuiolT9eeEJCyy0Vhcwa4zQvdrZNVqlqaxXhHqsSV1Ww7T2jSCUQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/plugins/notifications/css/lobibox.min.css" />
+
+
+  <!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+
+
+  <!--Theme Styles-->
+  <link href="assets/css/light-theme.css" rel="stylesheet" />
+  <link href="assets/css/header-colors.css" rel="stylesheet" />
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>  <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+
+  <title>Listado de Proveedores - F&A Distribuidora</title>
+  <style>
+    .mostrarColumna{
+      display:inline-block !important;
+      padding-left:30px !important;
+    }
+    .disabledField{
+      background:none !important;
+      cursor:not-allowed !important;
+    }
+  </style>
+</head>
+
+<body onload="CargarProveedores();">
+
+
+  <!--start wrapper-->
+  <div class="wrapper">
+    <div id="menu"></div>
+      <script>
+          $.get("menu.html", function(data){
+              $("#menu").html(data);
+          });
+      </script>
+
+       <!--start content-->
+       <main class="page-content">
+        <div class="row" style="text-align: center;">
+            <div style="padding-top: 100px;padding-bottom: 100px;">
+                <h3>Cerrando sesión...</h3>
+                <div class="spinner-border text-primary" role="status"> 
+                </div>
+                <div class="spinner-border text-secondary" role="status"> 
+                </div>
+                <div class="spinner-border text-success" role="status"> 
+                </div>
+                <div class="spinner-border text-danger" role="status"> 
+                </div>
+                <div class="spinner-border text-warning" role="status"> 
+                </div>
+                <div class="spinner-border text-info" role="status"> 
+                </div>
+                <div class="spinner-border text-dark" role="status"> 
+                </div>
+        </div>
+
+    </div>
+	   </main>
+       <!--end page main-->
+  </div>
+  <!--end wrapper-->
+
+
+  <!-- Bootstrap bundle JS -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <!--plugins-->
+  <script src="./assets/js/pace.min.js"></script>
+  <script src="./assets/plugins/select2/js/select2.min.js"></script>
+  <script src="./assets/plugins/input-tags/js/tagsinput.js"></script>
+  <script src="./assets/js/form-select2.js"></script>
+  <script src="./assets/plugins/notifications/js/notifications.js"></script>
+  <script src="./assets/plugins/notifications/js/lobibox.js"></script>
+  <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+  <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+  <!--app-->
+  <script src="./js/checkout.js"></script>
+</body>
+
+</html>

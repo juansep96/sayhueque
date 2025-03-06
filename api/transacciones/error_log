@@ -1,0 +1,10 @@
+[31-Jan-2025 11:14:22 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Exception: SOAP Fault: HTTP
+Service Unavailable
+ in /home/sayhueque/public_html/intranet/AFIP/Afip.php:402
+Stack trace:
+#0 /home/sayhueque/public_html/intranet/AFIP/Afip.php(382): AfipWebService->_CheckErrors('FECompUltimoAut...', Object(SoapFault))
+#1 /home/sayhueque/public_html/intranet/AFIP/Class/ElectronicBilling.php(311): AfipWebService->ExecuteRequest('FECompUltimoAut...', Array)
+#2 /home/sayhueque/public_html/intranet/AFIP/Class/ElectronicBilling.php(41): ElectronicBilling->ExecuteRequest('FECompUltimoAut...', Array)
+#3 /home/sayhueque/public_html/intranet/api/transacciones/EliminarVentaFacturada.php(44): ElectronicBilling->GetLastVoucher(6, 8)
+#4 {main}
+  thrown in /home/sayhueque/public_html/intranet/AFIP/Afip.php on line 402

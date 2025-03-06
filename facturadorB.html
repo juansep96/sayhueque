@@ -1,0 +1,199 @@
+
+
+<div class="row">
+    <div class="col-xl-10 col-xs-10 mx-auto">
+        <div class="card mt-1">
+            <div class="card-body">
+                <div class="input-group p-2">
+                    <input type="text" autocomplete="off" autofocus class="form-control m-4"  id="buscadorProducto" aria-describedby="emailHelp" placeholder="Puede buscar un producto por nombre o codigo.">
+                </div>
+                <div class="input-group p-2">
+                        <table class="table centered" id="tabla-venta" >
+                          <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>% Desc.</th>
+                                <th>Subtotal</th>
+                                <th class="text-center">Quitar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-xl-2 col-xs-2 mx-auto">
+        <div class="card mt-1">
+            <div class="card-body">
+                <div class="mt-4 text-center">
+                    <h6>OPCIONES</h6>
+                  </div>
+                  <div style="text-align: center;">
+                    <div class="row">
+
+                        <div class="input-group p-3">
+                            <button onclick="reset();" type="button" class="btn btn-pink btn-opciones">Volver</button>
+                        </div>
+
+                        <div class="input-group p-3">
+                            <button onclick="NuevoAjuste();" type="button" class="btn btn-pink btn-opciones">Ajuste</button>
+                        </div>
+
+                        <div class="input-group p-3">
+                            <button onclick="AplicarIntereses();" type="button" class="btn btn-pink btn-opciones">Planes Ahora</button>
+                        </div>
+    
+                        <div class="input-group p-3">
+                            <button onclick="DescartarVenta();" type="button" class="btn btn-pink btn-opciones">Descartar</button>
+                        </div>
+    
+                        <div class="input-group p-3">
+                            <button onclick="GuardarVenta();" type="button" class="btn btn-pink btn-opciones">Finalizar</button>
+                        </div>
+                        
+                    </div>
+                  </div>
+            </div>
+          </div>
+      </div>
+</div>
+<div class="row">
+<div class="col-xl-12 col-xs-12 mx-auto ">
+    <div class="card mt-1">
+        <div class="card-body">
+            <div class="input-group p-2">
+               <i style="font-size:2em !important" class="fadeIn animated bx bx-dollar"></i><input type="text" readonly id="totalizador" class="browser-default" style="text-decoration: none;font-size: 2em;border:0;width:150px;" value="0.00">
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<!--Modals-->
+
+<div class="modal fade" id="modalAjuste" tabindex="-1" role="dialog" aria-labelledby="modalAjuste" aria-hidden="true"><!-- Nuevo Ajuste -->
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nuevo Ajuste</h5>
+          <button type="button" class="close" onclick="CerrarCargarAjuste();" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group p-2">
+                <span class="input-group-text p-1">Detalle</span><input type="text" id="detalle_item" class="form-control">
+                <span class="input-group-text p-1">Importe</span><input type="text" id="importe_item" class="form-control">
+                <button onclick="CargarAjuste();" type="button" class="btn btn-pink p-1"> + Cargar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalMetodo" tabindex="-1" role="dialog" aria-labelledby="modalMetodo" aria-hidden="true"><!-- Metodos de Pago -->
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Metodos de Pago</h5>
+          <button type="button" class="close" onclick="CerrarElegirMetodo();" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <span class="text-center"><strong>UTILICE EL PUNTO COMO SEPARADOR DECIMAL. NO UTILICE SEPARADOR DE MILES. EJ: 1525.50</strong></span>
+        <form id="metodo">
+            <div class="row p-2">
+              <div class="input-field col-4">
+                <label for="efectivo">EFECTIVO</label>
+                <input type="number" value="0.00" id="efectivo" step="0.01" class="form-control">
+              </div>
+              
+              <div class="input-field col-4">
+                <label for="posnet">POSNET</label>
+                <input type="number" value="0.00" id="posnet" step="0.01" class="form-control">
+              </div>
+
+              <div class="input-field col-4">
+                <label for="transferencia">TRANSFERENCIA</label>
+                <input type="number" value="0.00" id="transferencia" step="0.01" class="form-control">
+              </div>
+            </div>
+            
+            <div class="row p-2">
+              <div class="input-field col-4">
+                <label for="facturar">FACTURAR</label>
+                <select onchange="ActivarBotonGuardar();" id="facturar" class="form-control">
+                  <option selected disabled value="0">Seleccione Opcion</option>
+                  <option value="SI">SI</option>
+                  <option value="NO">NO</option>
+                </select>
+              </div>
+              <div id="contenedor_dni" class="input-field col-4 d-none">
+                <label for="facturar">DNI FACTURADOR</label>
+                <input type="number" id="dni_facturador" class="form-control" value="123456789">
+              </div>
+              <div class="input-field col-4">
+                <button hidden id="botonGuardar" onclick="InsertarVenta();" type="button" style="margin-top:20px !important" class="btn btn-pink accion-modal"><i class="bi bi-plus"></i>Guardar</button>
+              </div>
+            </div>
+        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalPlanesAhora" tabindex="-1" role="dialog" aria-labelledby="modalPlanesAhora" aria-hidden="true"><!-- Metodos de Pago -->
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Elegir Planes Ahora</h5>
+          <button type="button" class="close" onclick="CerrarElegirPlanAhora();" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <div class="row p-2">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cuotas</th>
+                        <th scope="col">Interes</th>
+                        <th scope="col">Elegir</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>6</td>
+                        <td>20%</td>
+                        <td><input type="radio" name="plan_tarjeta" value="6" /></td>
+                      </tr>
+                      <tr>
+                        <td>12</td>
+                        <td>40%</td>
+                        <td><input type="radio" name="plan_tarjeta" value="12" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            
+            <div class="row p-2">
+              <div class="input-field col-4">
+                <button id="botonGuardar" onclick="AplicarInteresesOK();" type="button" style="margin-top:20px !important" class="btn btn-pink accion-modal"><i class="bi bi-plus"></i>Aplicar Interes</button>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/facturarB.js?v=1.528"></script>

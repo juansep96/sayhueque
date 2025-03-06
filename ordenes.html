@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es" class="light-theme">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+  <!--plugins-->
+  <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+  <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+  <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+  <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
+  <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+  <link href="assets/plugins/input-tags/css/tagsinput.css" rel="stylesheet" />
+  <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap CSS -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/bootstrap-extended.css" rel="stylesheet" />
+  <link href="assets/css/style.css" rel="stylesheet" />
+  <link href="assets/css/icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" integrity="sha512-xnP2tOaCJnzp2d2IqKFcxuOiVCbuessxM6wuiolT9eeEJCyy0Vhcwa4zQvdrZNVqlqaxXhHqsSV1Ww7T2jSCUQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/plugins/notifications/css/lobibox.min.css" />
+
+
+  <!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+
+
+  <!--Theme Styles-->
+  <link href="assets/css/light-theme.css" rel="stylesheet" />
+  <link href="assets/css/header-colors.css" rel="stylesheet" />
+
+  <script src="./assets/js/jquery-3.6.0.js" ></script>
+
+  <title>Listado de Ordenes -Sayhueque SH</title>
+  <script>
+    $.post("./api/ObtenerSesion")
+    .then((res)=>{
+      if(res=="NO"){
+        window.location.href = "//intranet.sayhuequebb.com.ar/index.html";
+      }
+    })
+  </script>
+  <style>
+    .mostrarColumna{
+      width:100% !important;
+    }
+    tr{
+      text-align: center;
+    }
+    .bi{
+        font-size: 25px !important;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!--start wrapper-->
+  <div class="wrapper">
+    <div id="menu"></div>
+      <script>
+          $.get("menu.html", function(data){
+              $("#menu").html(data);
+          });
+      </script>
+
+       <!--start content-->
+       <main class="page-content">
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Tienda Online</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item active" aria-current="page">Listado de Ordenes</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<!--end breadcrumb-->
+
+        <div class="row">
+					<div class="col-xl-12 col-xs-12 mx-auto">
+						<div class="card mt-1">
+							<div class="card-body" style="margin-left:30px !important">
+                                <div class="row mb-4">
+                                    <div class="col-3">
+                                      <div class="input-group p-2">
+                                        <span class="input-group-text">Desde</span>
+                                        <input type="date" id="desde" class="form-control">
+                                      </div>
+                                    </div>
+                                    <div class="col-3">
+                                      <div class="input-group p-2">
+                                        <span class="input-group-text">Hasta</span>
+                                        <input type="date" id="hasta" class="form-control">
+                                        </select>
+                                      </div>
+                                    </div>      
+                                    <div class="col-3">
+                                        <div class="input-group p-2">
+                                          <span class="input-group-text">Estado</span>
+                                          <select id="estado" class="form-control">
+                                            <option selected value="on-hold">Pendientes</option>
+                                            <option value="completed">Completadas</option>
+                                            <option value="cancelled">Canceladas</option>
+                                            <option value="all">Todas</option>
+                                          </select>
+                                        </div>
+                                      </div>    
+                                      <div class="col-3">
+                                        <div class="input-group p-2">
+                                            <button onclick="ObtenerOrdenes();" type="button" class="btn btn-pink">Filtrar</button>
+                                        </div>
+                                      </div>                                   
+                                </div>
+                                <div class="table-responsive">
+                                    <h6 class="text-center">Ordenes</h6>
+                                    <table id="ordenes" class="table table-striped ">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>FECHA</th>
+                                            <th>HORA</th>
+                                            <th>CLIENTE</th>
+                                            <th>MONTO</th>
+                                            <th>ESTADO</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="filaOrdenes">
+                                               <td colspan="7">NO SE ENCONTRARON ORDENES</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+  					    </div>
+  				    </div>
+            </div>
+        </main>
+       <!--end page main-->
+    </div>
+  <!--end wrapper-->
+
+  <div class="modal fade" id="modalVerOrden" tabindex="-1" aria-hidden="true">
+    <div class="modal-xl modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center">Detalle de la Orden</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <div class="modal-body">
+            <div class="input-group p-2">
+              <h6>PRODUCTOS EN LA VENTA</h6>
+              <table class="table centered" id="tabla-items" >
+                <thead>
+                  <tr>
+                      <th>Codigo</th>
+                      <th>Nombre</th>
+                      <th>Precio U.</th>
+                      <th>Cantidad</th>
+                      <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="input-group p-2" style="margin-top:10px !important">
+                <h6>DATOS DEL CLIENTE</h6>
+            </div>
+            <div class="input-group p-2">
+                  <span class="input-group-text">Apellido</span><input readonly type="text" id="apellido" class="form-control">
+                  <span class="input-group-text">Nombre</span><input readonly type="text" id="nombre" class="form-control">
+                  <span class="input-group-text">Telefono</span><input readonly type="text" id="telefono" class="form-control">     
+                  <span class="input-group-text">E-Mail</span><input readonly type="text" id="email" class="form-control">     
+            </div>
+
+            <div class="input-group p-2" style="margin-top:10px !important">
+              <h6>FORMAS DE PAGO</h6>
+            </div>
+            <div class="input-group p-2">
+                <span class="input-group-text">Total</span><input readonly type="text" id="total" class="form-control">
+                <span class="input-group-text">Metodo de Pago</span><input readonly type="text" id="metodoPago" class="form-control">
+                <span class="input-group-text">Estado</span><input readonly type="text" id="estadoPago" class="form-control">     
+                <span class="input-group-text">Cupon</span><input readonly type="text" id="cuponPago" class="form-control">     
+
+            </div>
+
+            <div hidden class="input-group p-2 envio" style="margin-top:10px !important">
+                <h6>DATOS DE ENVIO</h6>
+            </div>
+            <div hidden class="input-group p-2 envio">
+              <span class="input-group-text">Apellido</span><input readonly type="text" id="apellido_envio" class="form-control">
+              <span class="input-group-text">Nombre</span><input readonly type="text" id="nombre_envio" class="form-control">
+              <span class="input-group-text">Telefono</span><input readonly type="text" id="telefono_envio" class="form-control">     
+              <span class="input-group-text">E-Mail</span><input readonly type="text" id="email_envio" class="form-control">      
+            </div>
+            <div hidden class="input-group p-2 envio">
+              <span class="input-group-text">Direccion</span><input readonly type="text" id="direccion" class="form-control">
+              <span class="input-group-text">Cod. Postal</span><input readonly type="text" id="cp" class="form-control">
+              <span class="input-group-text">Ciudad</span><input readonly type="text" id="ciudad" class="form-control">     
+              <span class="input-group-text">Provincia</span><input readonly type="text" id="provincia" class="form-control">      
+            </div>
+            <div hidden class="input-group p-2 envio">
+                <span class="input-group-text">Metodo de Envio</span><input readonly type="text" id="metodo" class="form-control">
+            
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+ 
+  <!-- Bootstrap bundle JS -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <!--plugins-->
+  <script src="./assets/js/pace.min.js"></script>
+  <script src="./assets/plugins/select2/js/select2.min.js"></script>
+  <script src="./assets/plugins/input-tags/js/tagsinput.js"></script>
+  <script src="./assets/js/form-select2.js"></script>
+  <script src="./assets/plugins/notifications/js/notifications.js"></script>
+  <script src="./assets/plugins/notifications/js/lobibox.js"></script>
+  <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+  <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+  <script src="//momentjs.com/downloads/moment.min.js"></script> <!--Moments Library-->
+  <!--app-->
+  <script src="./js/ordenes.js?v=3.3"></script>
+  <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>
